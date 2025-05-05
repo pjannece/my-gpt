@@ -1,171 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>my-gpt | Build Your Assistant</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f6f6f6;
-      margin: 0;
-      padding: 40px;
-    }
+<h1>Build Your Assistant</h1>
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-    }
+<label for="tone">Tone:</label>
+<select id="tone">
+  ...
+</select>
 
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      font-size: 16px;
-    }
-
-    button {
-      margin-top: 25px;
-      padding: 10px 20px;
-      background-color: #c49454;
-      color: white;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
-
-    #outputBox {
-      margin-top: 30px;
-      display: none;
-      background: #f1f1f1;
-      padding: 20px;
-      border-radius: 6px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Build Your Assistant</h1>
-
-    <label for="tone">Tone:</label>
-    <select id="tone">
-      <option value="professional">Professional</option>
-      <option value="friendly">Friendly</option>
-      <option value="funny">Funny</option>
-      <option value="therapist">Calm & Supportive</option>
-    </select>
-
-    <label for="role">Role (e.g. Publicist, Mentor):</label>
-    <input id="role" placeholder="Assistant’s role" />
-
-    <label for="input">What should they write?</label>
-    <textarea id="input" rows="5" placeholder="e.g. Help me ask for a raise politely"></textarea>
-
-    <button onclick="generate()">Generate</button>
 <h2>Set Their Personality</h2>
-
 <div id="sliders">
-  <label>Dry → Funny<br>
-    <input type="range" min="0" max="100" value="50" id="slider0" oninput="updateLabel(this)">
-    <span id="label0">50</span>
-  </label><br><br>
-
-  <label>Simple → Flowery<br>
-    <input type="range" min="0" max="100" value="50" id="slider1" oninput="updateLabel(this)">
-    <span id="label1">50</span>
-  </label><br><br>
-
-  <label>Passive → Assertive<br>
-    <input type="range" min="0" max="100" value="50" id="slider2" oninput="updateLabel(this)">
-    <span id="label2">50</span>
-  </label><br><br>
-
-  <label>Kind → Mean<br>
-    <input type="range" min="0" max="100" value="50" id="slider3" oninput="updateLabel(this)">
-    <span id="label3">50</span>
-  </label><br><br>
-
-  <label>Hesitant → Bold<br>
-    <input type="range" min="0" max="100" value="50" id="slider4" oninput="updateLabel(this)">
-    <span id="label4">50</span>
-  </label><br><br>
-
-  <label>Vague → Specific<br>
-    <input type="range" min="0" max="100" value="50" id="slider5" oninput="updateLabel(this)">
-    <span id="label5">50</span>
-  </label><br><br>
-
-  <label>Neutral → Persuasive<br>
-    <input type="range" min="0" max="100" value="50" id="slider6" oninput="updateLabel(this)">
-    <span id="label6">50</span>
-  </label><br><br>
-
-  <label>Factual → Speculative<br>
-    <input type="range" min="0" max="100" value="50" id="slider7" oninput="updateLabel(this)">
-    <span id="label7">50</span>
-  </label><br><br>
-
-  <label>Detached → Emotional<br>
-    <input type="range" min="0" max="100" value="50" id="slider8" oninput="updateLabel(this)">
-    <span id="label8">50</span>
-  </label><br><br>
-
-  <label>Casual → Formal<br>
-    <input type="range" min="0" max="100" value="50" id="slider9" oninput="updateLabel(this)">
-    <span id="label9">50</span>
-  </label><br><br>
-
-  <label>Slow → Punchy<br>
-    <input type="range" min="0" max="100" value="50" id="slider10" oninput="updateLabel(this)">
-    <span id="label10">50</span>
-  </label><br><br>
-
-  <label>Expected → Surprising<br>
-    <input type="range" min="0" max="100" value="50" id="slider11" oninput="updateLabel(this)">
-    <span id="label11">50</span>
-  </label><br><br>
+  <!-- 12 sliders here -->
 </div>
 
-    <div id="outputBox">
-      <h3>Your Assistant Says:</h3>
-      <div id="output"></div>
-    </div>
-  </div>
+<label for="role">Role (e.g. Publicist, Mentor):</label>
+<input id="role" placeholder="Assistant’s role" />
 
-  <script>
-    async function generate() {
-      const tone = document.getElementById("tone").value;
-      const role = document.getElementById("role").value;
-      const input = document.getElementById("input").value;
+<label for="input">What should they write?</label>
+<textarea id="input" rows="5" placeholder="e.g. Help me ask for a raise politely"></textarea>
 
-      const outputBox = document.getElementById("outputBox");
-      const output = document.getElementById("output");
-      output.innerText = "Generating...";
-      outputBox.style.display = "block";
+<button onclick="generate()">Generate</button>
 
-      function updateLabel(slider) {
-  const index = slider.id.replace("slider", "");
-  document.getElementById("label" + index).innerText = slider.value;
-}
-
-
-      // This won't work yet — we’ll wire it up in the next step
-      output.innerText = `[Preview only] GPT would respond here based on:\nTone: ${tone}\nRole: ${role}\nMessage: ${input}`;
-    }
-  </script>
-</body>
-</html>
+<div id="outputBox">
+  <h3>Your Assistant Says:</h3>
+  <div id="output"></div>
+</div>
