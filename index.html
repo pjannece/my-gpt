@@ -161,6 +161,11 @@
       // This won't work yet — we’ll wire it up in the next step
       output.innerText = `[Preview only] GPT would respond here based on:\nTone: ${tone}\nRole: ${role}\nMessage: ${input}`;
     }
+    function updateLabel(slider) {
+  const index = slider.id.replace("slider", "");
+  document.getElementById("label" + index).innerText = slider.value;
+}
+
   </script>
 </body>
 </html>
